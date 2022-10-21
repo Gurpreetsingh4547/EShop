@@ -1,3 +1,6 @@
+// Packages
+import nprogress from "nprogress";
+
 /**
  * Check Array is Array
  * @param {Array} arr
@@ -134,4 +137,10 @@ export const IsValidEmail = (email) => {
   return re.test(email);
 };
 
-
+export const nProgressConfiguration = () => {
+  nprogress.configure({ showSpinner: false });
+  nprogress.configure({ trickleRate: 0.1, trickleSpeed: 1000 });
+  nprogress.configure({ easing: "ease", speed: 500 });
+  nprogress.start();
+  nprogress.done();
+};
