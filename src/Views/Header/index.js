@@ -19,12 +19,21 @@ import "../../Css/style.css";
 const Header = () => {
   // Display slide menu in Mobile view
   const [isVisibleMenu, setIsVisibleMenu] = useState(true);
+  const [activeTab, setActiveTab] = useState(0);
 
   /**
    * Display menubar on click of hamburg button
    */
   const showMenu = () => {
     setIsVisibleMenu(!isVisibleMenu);
+  };
+
+  /**
+   * Active current Tabs
+   * @param {number} currentIndex
+   */
+  const handleTabs = (currentIndex) => {
+    setActiveTab(currentIndex);
   };
   return (
     <nav id="header" className="w-full z-30 top-0 ">
@@ -56,7 +65,14 @@ const Header = () => {
                   return IsTrue(dropdown) ? (
                     <li key={index}>
                       <div className="dropdown inline-block">
-                        <li className="bg-white font-semibold py-2 px-4 rounded-lg inline-flex items-center hover:bg-gray-300 hover:bg-opacity-20">
+                        <li
+                          className={`bg-white font-semibold py-2 px-4 ${
+                            activeTab !== index &&
+                            " hover:bg-gray-300 hover:bg-opacity-20"
+                          } rounded-lg inline-flex items-center ${
+                            activeTab === index && "bg-gray-300 bg-opacity-30"
+                          }`}
+                        >
                           <span className="mr-1">{name}</span>
                           <svg
                             className="fill-current h-4 w-4"
@@ -69,9 +85,13 @@ const Header = () => {
                         <ul className="dropdown-menu w-24  absolute ml-4 hidden text-gray-700 pt-1 z-10">
                           {IsArray(dropdownArray) &&
                             ArrayHaveValue(dropdownArray) &&
-                            dropdownArray.map(({ name, path }, index) => {
+                            dropdownArray.map(({ name, path }, i) => {
                               return (
-                                <li key={index} className="rounded-lg">
+                                <li
+                                  key={i}
+                                  className="rounded-lg"
+                                  onClick={() => handleTabs(index)}
+                                >
                                   <Link
                                     className="bg-white hover:bg-gray-100 py-2 w-32 px-3 block whitespace-no-wrap"
                                     to={path}
@@ -87,8 +107,14 @@ const Header = () => {
                   ) : (
                     <li key={index}>
                       <Link
-                        className="inline-block no-underline  hover:bg-gray-300 hover:bg-opacity-20 rounded-lg py-2 px-4 "
+                        className={`inline-block no-underline  ${
+                          activeTab !== index &&
+                          " hover:bg-gray-300 hover:bg-opacity-20"
+                        } rounded-lg py-2 px-4 ${
+                          activeTab === index && "bg-gray-300 bg-opacity-30"
+                        } `}
                         to={path}
+                        onClick={() => handleTabs(index)}
                       >
                         {name}
                       </Link>
