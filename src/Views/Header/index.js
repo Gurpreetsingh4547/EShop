@@ -54,12 +54,10 @@ const Header = () => {
                 ArrayHaveValue(HEADER) &&
                 HEADER.map(({ name, path, dropdown, dropdownArray }, index) => {
                   return IsTrue(dropdown) ? (
-                    <li>
+                    <li key={index}>
                       <div className="dropdown inline-block">
-                        <li className="bg-white font-semibold py-2 px-4 rounded inline-flex items-center">
-                          <span className="mr-1 hover:text-red-500">
-                            {name}
-                          </span>
+                        <li className="bg-white font-semibold py-2 px-4 rounded-lg inline-flex items-center hover:bg-gray-300 hover:bg-opacity-20">
+                          <span className="mr-1">{name}</span>
                           <svg
                             className="fill-current h-4 w-4"
                             xmlns="http://www.w3.org/2000/svg"
@@ -68,14 +66,14 @@ const Header = () => {
                             <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                           </svg>
                         </li>
-                        <ul className="dropdown-menu w-24 rounded-lg absolute ml-4 hidden text-gray-700 pt-1 z-10">
+                        <ul className="dropdown-menu w-24  absolute ml-4 hidden text-gray-700 pt-1 z-10">
                           {IsArray(dropdownArray) &&
                             ArrayHaveValue(dropdownArray) &&
-                            dropdownArray.map(({ name, path }) => {
+                            dropdownArray.map(({ name, path }, index) => {
                               return (
-                                <li className="">
+                                <li key={index} className="rounded-lg">
                                   <Link
-                                    className="bg-white hover:bg-slate-100 py-2 px-4 block whitespace-no-wrap"
+                                    className="bg-white hover:bg-gray-100 py-2 w-32 px-3 block whitespace-no-wrap"
                                     to={path}
                                   >
                                     {name}
@@ -89,7 +87,7 @@ const Header = () => {
                   ) : (
                     <li key={index}>
                       <Link
-                        className="inline-block no-underline  hover:text-red-500 py-2 px-4 "
+                        className="inline-block no-underline  hover:bg-gray-300 hover:bg-opacity-20 rounded-lg py-2 px-4 "
                         to={path}
                       >
                         {name}
